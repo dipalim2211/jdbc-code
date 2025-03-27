@@ -1,9 +1,6 @@
 package org.example.jdbc;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DatabaseOperation {
 
@@ -16,7 +13,7 @@ public class DatabaseOperation {
     public static void main(String[] args) {
 
         connectToDBAndRetrieveResult();
-        addStudents(8,"Dipak",25); //Pass student data to add
+        addStudents(9 ,"Sonali",22); //Pass student data to add
 
     }
 
@@ -45,28 +42,44 @@ public class DatabaseOperation {
 
     private static void addStudents(int id,String name,int age) {
 
-        //HardCord Value wrong approach
-        //final String insertQuery = "insert into students(id,name,age) values (7,'Reva',20)";
-
-        //Dynamic input: use string inside string : "+id+"
-        //sql : "KK" > Not work , 'KK' > work , '"+name+"'
+        /*
         final String insertQuery = "insert into students(id,name,age) values ("+id+",'"+name+"',"+age+")";
+        query used by statement obj and issue may occur due to this.
+        issue:
+        1. SQL injection Attack('""') : Not recommended Approach
+        2.it's slow : Because of dynamic value(ex. 1000 times insertion by dynamic value)
+        you cant catch the query
+        3.Syntax complex to manage
+
+        to Overcome,
+        Java introduced new statement : PreparedStatement
+        1.No SQL injection Attack
+        2.it's fast
+        3.syntax is simple
+        4.instead of dynamic values use same count place holder(?)
+        5.use preparedStatement methode instead statement method and pass query
+
+         */
+        final String insertQuery = "insert into students(id,name,age) values (?,?,?)"; //4.
 
         System.out.println("Query Inserted : "+insertQuery);
 
-        //try with Resources
+
         try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            Statement statement = connection.createStatement();)
+            PreparedStatement statement = connection.prepareStatement(insertQuery);)   //5.
         {
-            int count = statement.executeUpdate(insertQuery);
-            //to insert query:executeUpdate() use > Return int
-            //No resource opened just Variable stored int value
-            //count > tell number row affected after query
+            //For first ? I want id
+            statement.setInt(1,id);
+            //set name for second ?
+            statement.setString(2,name);
+            statement.setInt(3,age);
+
+            int count = statement.executeUpdate();
 
             if(count>0){
-                System.out.println("Student '"+name+"' Record Inserted");
+                System.out.println("Student Record Inserted");
             }else{
-                System.out.println("Student '"+name+"' Record Not Inserted");
+                System.out.println("Student Record Not Inserted");
             }
 
         }catch (Exception e) {
