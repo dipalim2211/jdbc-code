@@ -28,7 +28,10 @@ public class DatabaseConnector {
 
             //3 . Establish Connection
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/devgen", "root", "Java@2211");
+            //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/devgen", "root", "Java@2211");
+
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/devgen",
+                    "postgres", "Java@2211");
 
             //4 . Create Statement
 
