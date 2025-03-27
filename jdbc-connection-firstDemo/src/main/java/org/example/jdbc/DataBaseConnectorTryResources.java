@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 public class DataBaseConnectorTryResources {
 
+    /*
     public static void main(String[] args) {
 
         final String url ="jdbc:postgresql://localhost:5433/devgen";
@@ -38,5 +39,5 @@ public class DataBaseConnectorTryResources {
         }catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    } */
 }
