@@ -12,9 +12,10 @@ public class DatabaseOperation {
 
     public static void main(String[] args) {
 
-        connectToDBAndRetrieveResult();
+       // connectToDBAndRetrieveResult();
        // addStudents(9 ,"Sonali",22);   //Pass student data to add
-        updateStudents(9,"Monali",21); //Pass student data to update
+       // updateStudents(9,"Monali",21); //Pass student data to update
+        deleteStudents(9); //delete whose id=9
 
     }
 
@@ -93,6 +94,34 @@ public class DatabaseOperation {
                 System.out.println("Student Record Updated");
             }else{
                 System.out.println("Student Record Not Updated");
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //CRUD : DELETE
+    private static void deleteStudents(int id) {
+        //delete id on basis of id
+
+        final String deleteQuery = "delete from students where id = ?";
+
+        System.out.println("Query Inserted : "+deleteQuery);
+
+        try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement statement = connection.prepareStatement(deleteQuery);)
+        {
+
+            //Arrange as per placeholder ?
+            statement.setInt(1,id);
+
+            int count = statement.executeUpdate();
+
+            if(count>0){
+                System.out.println("Student Record Deleted");
+            }else{
+                System.out.println("Student Record Not Deleted");
             }
 
         }catch (Exception e) {
