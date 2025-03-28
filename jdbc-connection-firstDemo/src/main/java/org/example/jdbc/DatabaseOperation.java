@@ -27,7 +27,7 @@ public class DatabaseOperation {
         //try with Resources
         try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(SELECT_QUERY);)
+            ResultSet rs = statement.executeQuery(SELECT_QUERY))
         {
             while (rs.next()) {
 
@@ -51,7 +51,7 @@ public class DatabaseOperation {
         System.out.println("Query Inserted : "+insertQuery);
 
         try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            PreparedStatement statement = connection.prepareStatement(insertQuery);)   //5.
+            PreparedStatement statement = connection.prepareStatement(insertQuery))   //5.
         {
 
             statement.setInt(1,id);
@@ -80,7 +80,7 @@ public class DatabaseOperation {
         System.out.println("Query Inserted : "+updateQuery);
 
         try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            PreparedStatement statement = connection.prepareStatement(updateQuery);)   //5.
+            PreparedStatement statement = connection.prepareStatement(updateQuery))   //5.
         {
 
             //Arrange as per placeholder ?
