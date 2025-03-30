@@ -4,6 +4,7 @@ import imdb.model.Movie;
 import imdb.service.IMovieService;
 import imdb.service.InMemoryMovieServiceImpl;
 import imdb.model.Genre;
+import imdb.service.MovieServiceFactory;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class MovieServiceClient
 
         //Decide which storage you want
 
-           IMovieService movieService = new InMemoryMovieServiceImpl();
+           IMovieService movieService = MovieServiceFactory.getMovieService("IN_MEMORY");
            movieService.addMovie("A",Genre.COMEDY,2010);
 
         //Read Movie by ID

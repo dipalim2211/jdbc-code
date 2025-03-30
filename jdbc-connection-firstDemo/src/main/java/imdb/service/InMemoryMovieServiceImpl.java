@@ -37,13 +37,13 @@ public class InMemoryMovieServiceImpl implements IMovieService {
 
 
     @Override
-    public Movie addMovie(String name, Genre genre, int year) {
+    public boolean addMovie(String name, Genre genre, int year) {
 
         Movie movie = new Movie(idCounter,name,genre,year);
 
         movieMap.put(idCounter,movie);
         idCounter++;
-        return movie;
+        return true; // No need to return movie (return when added)
 
     }
 

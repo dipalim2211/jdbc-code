@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface IMovieService {
 
-   Movie addMovie(String name, Genre genre, int year);
+   boolean addMovie(String name, Genre genre, int year);
    Movie getMovieById(long id);
    List<Movie> getAllMovies();
    boolean updateMovie(long id, String name, Genre Genre, int year);
